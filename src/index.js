@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { makeNewKey } from './key.js';
 import { generateQR } from './qr.js';
+import { wait } from './wait.js';
 
 dotenv.config();
 
@@ -11,11 +12,15 @@ const go = () => {
   console.log(`A small fee (${process.env.FEE_AMOUNT_SATS} sats) will be collected from any received BCH,`);
   console.log('and the remainder will be sent to a fresh wallet.');
 
-  const staticKey = makeNewKey(process.env.STATIC_ADDRESS_ENTROPY);
+  const staticAddress = makeNewKey(process.env.STATIC_ADDRESS_ENTROPY);
   
-  return generateQR(staticKey).then(qr => {
+  return loop(staticAddress);
+}
+
+const loop = staticAddress => {
+  return generateQR(staticAddress).then(qr => {
     console.log();
-    console.log(staticKey);
+    console.log(staticAddress);
     console.log();
     console.log(qr);
     console.log();
@@ -23,7 +28,13 @@ const go = () => {
     console.log();
     console.log("----------------------------------------------------------------------")
     console.log();
+    return wait(staticAddress, makeNewColdAddress);
   });
-}
+};
+
+const makeNewColdAddress = (staticAddress, amount) => {
+  loop(staticAddress);
+};
+
 
 go();
