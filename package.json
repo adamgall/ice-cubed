@@ -1,0 +1,15 @@
+{
+  "name": "ice-cubed-wallet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./src"
+  },
+  "dependencies": {
+    "bitbox-sdk": "^8.11.2",
+    "dotenv": "^8.2.0",
+    "qrcode": "^1.4.4"
+  },
+  "type": "module"
+}
