@@ -10,6 +10,13 @@ const txsToProcess = [];
 const allTxs = [];
 
 const go = () => {
+  if (process.env.STATIC_ADDRESS_ENTROPY === null || process.env.STATIC_ADDRESS_ENTROPY === "") {
+    console.log();
+    console.error("Set STATIC_ADDRESS_ENTROPY environment variable to a long random string.");
+    console.log();
+    process.exit(1);
+  }
+
   console.log();
   console.log("----------------------------------------------------------------------");
   console.log();
@@ -32,7 +39,6 @@ const makeNewKey = entropy => {
   const address = bitbox.HDNode.toCashAddress(hdNode);
   return { privateKey, address };
 };
-
 
 const openTransactionPipe = (staticAddress, fee) => {
   const legacy = bitbox.Address.toLegacyAddress(staticAddress);
