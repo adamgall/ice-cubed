@@ -12,7 +12,7 @@ const allTxs = [];
 const go = () => {
   if (process.env.STATIC_ADDRESS_ENTROPY === null || process.env.STATIC_ADDRESS_ENTROPY === "") {
     console.log();
-    console.error("Set STATIC_ADDRESS_ENTROPY environment variable to a long random string.");
+    console.error("Set STATIC_ADDRESS_ENTROPY environment variable to a long random string, and don't lose it.");
     console.log();
     process.exit(1);
   }
